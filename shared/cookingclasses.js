@@ -1,4 +1,4 @@
-export const CAMPSITES = [
+export const COOKINGCLASSES = [
     {
         id: 0,
         name: "Baking class",
@@ -20,8 +20,8 @@ export const CAMPSITES = [
         name:"Birthday parties",
         image: "/assets/images1/birthdaycake.jpeg",
         elevation: 2901,
-        featured: false,
+        featured: true,
         description: "Choose from our custom tailored recipes for a fun filled birthday party where all invited guest roll up their sleeve to cook."
-    },
+    }
     
 ];

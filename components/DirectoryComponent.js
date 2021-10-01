@@ -9,6 +9,7 @@ function Directory(props) {
             <ListItem
                 title={item.name}
                 subtitle={item.description}
+                onPress={() => props.onPress(item.id)}
                 leftAvatar={{ source: require('./images1/baking.jpeg')}}
             />
         );
@@ -16,7 +17,7 @@ function Directory(props) {
 
     return (
         <FlatList
-            data={props.featured}
+            data={props.cookingclasses}
             renderItem={renderDirectoryItem}
             keyExtractor={item => item.id.toString()}
         />
