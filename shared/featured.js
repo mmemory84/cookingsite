@@ -2,7 +2,7 @@ export const CAMPSITES = [
     {
         id: 0,
         name: "Baking class",
-        image: "",
+        image: "/assets/images1/kidbaking.jpeg",
         elevation: 1233,
         featured: false,
         description: "Kids spend time getting their hands dirty while they create delicious baked foods."
@@ -10,7 +10,7 @@ export const CAMPSITES = [
     {
         id: 1,
         name:"Lunch and dinner ",
-        image: "",
+        image: "/assets/images1/kidcooking.jpeg",
         elevation: 877,
         featured: false,
         description: "every week we learn a new recipe that can be a dinner or lunch dish."
@@ -18,7 +18,7 @@ export const CAMPSITES = [
     {
         id: 2,
         name:"Birthday parties",
-        image: "",
+        image: "/assets/images1/birthdaycake.jpeg",
         elevation: 2901,
         featured: false,
         description: "Choose from our custom tailored recipes for a fun filled birthday party where all invited guest roll up their sleeve to cook."
