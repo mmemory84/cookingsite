@@ -1,15 +1,15 @@
 import React, { Component } from "react";
-import { View, Text, ScrollView, FlatList } from "react-native";
+import { Text, ScrollView, FlatList } from "react-native";
 import { Card, ListItem } from "react-native-elements";
-//import { RECIPES } from "../shared/recipes";
 import { connect } from "react-redux";
 import Loading from './LoadingComponent';
+import { baseUrl } from "../shared/baseUrl";
 import * as Animatable from 'react-native-animatable';
 
 
 const mapStateToProps = (state) => {
   return {
-    recipes: state.recipes,
+    cookingclasses: state.cookingclasses,
   };
 };
 
@@ -29,35 +29,36 @@ class About extends Component {
   };
 
   render() {
-    const renderRecipe = ({ item }) => {
+    const renderCookingclass = ({ item }) => {
       return (
         <ListItem
           title={item.name}
           subtitle={item.description}
-          leftAvatar={{ source: require("./images1/kidcooking.jpeg") }}
+          leftAvatar={{source: {uri: baseUrl + item.image}}}
+          //leftAvatar={{ source: require("./images1/kidcooking.jpeg") }}
         />
       );
     };
 
-    if (this.props.recipes.isLoading) {
+    if (this.props.cookingclasses.isLoading) {
       return (
           <ScrollView>            
               <Mission />
               <Card
-                  title='Simple Recipes'>
+                  title='Featured Classes'>
                   <Loading />
               </Card>
           </ScrollView>
       );
   }
-  if (this.props.recipes.errMess) {
+  if (this.props.cookingclasses.errMess) {
       return (
           <ScrollView>
             <Animatable.View animation='fadeInDown' duration={2000} delay={1000}> 
               <Mission />
               <Card
-                  title='Simple Recipes'>
-                  <Text>{this.props.recipes.errMess}</Text>
+                  title='Featured Classes'>
+                  <Text>{this.props.cookingclasses.errMess}</Text>
               </Card>
             </Animatable.View>
           </ScrollView>
@@ -68,10 +69,10 @@ class About extends Component {
       <ScrollView>
         <Animatable.View animation='fadeInDown' duration={2000} delay={1000}>
           <Mission />
-          <Card title="Simple Recipes">
+          <Card title="Featured Classes">
             <FlatList
-              data={this.props.recipes.recipes}
-              renderItem={renderRecipe}
+              data={this.props.cookingclasses.cookingclasses}
+              renderItem={renderCookingclass}
               keyExtractor={(item) => item.id.toString()}
             />
           </Card>

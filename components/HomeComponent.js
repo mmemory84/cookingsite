@@ -1,15 +1,37 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text, Animated } from 'react-native';
 import { Card } from 'react-native-elements';
-import { COOKINGCLASSES } from '../shared/cookingclasses';
-import { RECIPES } from '../shared/recipes';
-//import { MOREINFO } from '../shared/MoreInfo';
-function RenderItem({item}) {
+import { connect } from 'react-redux';
+import Loading from './LoadingComponent';
+import { baseUrl } from '../shared/baseUrl';
+
+
+const mapStateToProps = state => {
+    return {
+        cookingclasses: state.cookingclasses,
+        promotions: state.promotions,
+        recipes: state.recipes
+    };
+};
+
+function RenderItem(props) {
+    const {item} = props;
+
+    if (props.isLoading) {
+        return <Loading />;
+    }
+    if (props.errMess) {
+        return (
+            <View>
+                <Text>{props.errMess}</Text>
+            </View>
+        );
+    }
     if (item) {
         return (
             <Card
                 featuredTitle={item.name}
-                image={require('./images1/kidcooking.jpeg')}
+                image={{uri: baseUrl + item.image}}
             >
                 <Text style={{margin: 10}}>
                     {item.description}
@@ -25,9 +47,23 @@ class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            cookingclasses: COOKINGCLASSES,
-            recipes: RECIPES
+            scaleValue: new Animated.Value(0)
         };
+    }
+
+    animate() {
+        Animated.timing(
+            this.state.scaleValue,
+            {
+                toValue: 1,
+                duration: 1500,
+                useNativeDriver: true
+            }
+        ).start();
+    }
+
+    componentDidMount() {
+        this.animate();
     }
 
     static navigationOptions = {
@@ -36,17 +72,21 @@ class Home extends Component {
 
     render() {
         return (
-            <ScrollView>
-                <RenderItem 
-                    item={this.state.cookingclasses.filter(cookingclass => cookingclass.featured)[0]}
+            <Animated.ScrollView style={{transform: [{scale: this.state.scaleValue}]}}>
+                <RenderItem
+                    item={this.props.cookingclasses.cookingclasses.filter(cookingclass => cookingclass.featured)[0]}
+                    isLoading={this.props.cookingclasses.isLoading}
+                    errMess={this.props.cookingclasses.errMess}
                 />
-                <RenderItem 
-                    item={this.state.recipes.filter(recipe => recipe.featured)[0]}
+    
+                <RenderItem
+                    item={this.props.recipes.recipes.filter(recipe => recipe.featured)[0]}
+                    isLoading={this.props.recipes.isLoading}
+                    errMess={this.props.recipes.errMess}
                 />
-                
-            </ScrollView>
+            </Animated.ScrollView>
         );
     }
 }
 
-export default Home;
+export default connect(mapStateToProps)(Home);

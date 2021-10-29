@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { View, Text, ScrollView } from "react-native";
 import { Card, Button, Icon } from "react-native-elements";
 import * as Animatable from 'react-native-animatable';
+import * as MailComposer from 'expo-mail-composer';
 
 class Contact extends Component {
   
@@ -12,7 +13,7 @@ class Contact extends Component {
 
   sendMail() {
     MailComposer.composeAsync({
-        recipients: ['campsites@nucamp.co'],
+        recipients: ['cookingclasses@DeesKitchen.co'],
         subject: 'Inquiry',
         body: 'To whom it may concern:'
     })
@@ -53,3 +54,4 @@ class Contact extends Component {
 }
 
 export default Contact;
+
